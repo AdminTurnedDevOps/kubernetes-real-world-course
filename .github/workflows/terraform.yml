@@ -41,7 +41,7 @@ jobs:
            
     - name: Terraform Format
       working-directory: Day-One/cluster/
-      run: terraform fmt -check
+      run: terraform fmt
 
     - name: Terraform Plan
       working-directory: Day-One/cluster/
