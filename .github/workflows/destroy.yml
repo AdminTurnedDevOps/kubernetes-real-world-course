@@ -2,11 +2,6 @@ name: 'EKS Cluster Deletion'
 
 on:
   workflow_dispatch:
-  
-#on:
-  #push:
-    #branches: [ "main" ]
-  #pull_request:
 
 permissions:
   contents: read
@@ -39,6 +34,6 @@ jobs:
       working-directory: Day-One/cluster/
       run: terraform init -backend-config "bucket=terraformaws11" -backend-config "key=eks-prod.tfstate"
     
-    - name: Terraform Apply
+    - name: Terraform Destroy
       working-directory: Day-One/cluster/
       run: terraform destroy -auto-approve
