@@ -37,10 +37,7 @@ jobs:
 
     - name: Terraform Init
       working-directory: Day-One/cluster/
-      run: terraform init \
-              -backend-config "bucket=terraformaws11" \
-              -backend-config "key=eks-prod.tfstate"
-           #terraform workspace new dev || terraform workspace select dev
+      run: terraform init -backend-config "bucket=terraformaws11" -backend-config "key=eks-prod.tfstate"
            
     - name: Terraform Format
       working-directory: Day-One/cluster/
