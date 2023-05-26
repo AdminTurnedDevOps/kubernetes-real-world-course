@@ -1,11 +1,11 @@
 variable "pubsub1" {
   type = string
-  default = "subnet-0a6297fa0f79b18b7"
+  default = "subnet-051c49a4d8434be66"
 }
 
 variable "pubsub2" {
   type = string
-  default = "subnet-05979800e40d97c76"
+  default = "subnet-02273f25c912d46ee"
 }
 
 variable "eksIAMRole" {
