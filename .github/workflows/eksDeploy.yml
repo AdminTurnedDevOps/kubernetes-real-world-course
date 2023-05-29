@@ -22,6 +22,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+          
+      - uses: azure/setup-helm@v3
+        id: install
         
       - name: Install kubectl
         run: |
@@ -43,6 +46,10 @@ jobs:
           
       - name: Connect to EKS cluster 
         run: aws eks --region $EKS_REGION update-kubeconfig --name $EKS_CLUSTER
+        
+      - name: Helm Run
+        shell: bash
+        run: helm list
 
       # Verify deployment
       - name: Verify the deployment
