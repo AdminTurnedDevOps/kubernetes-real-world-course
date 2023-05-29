@@ -15,7 +15,7 @@ resource "aws_vpc" "main" {
  cidr_block = "10.0.0.0/16"
  
  tags = {
-   Name = "Prod VPC"
+   Name = "${var.environment}-vpc"
  }
 }
 
@@ -26,7 +26,7 @@ resource "aws_subnet" "pubsub1" {
     availability_zone = "us-east-1a"
     
     tags = {
-        Name = "pubsub1"
+        Name = "pubsub1-${var.environment}"
     }
 }
 
@@ -37,7 +37,7 @@ resource "aws_subnet" "pubsub2" {
     availability_zone = "us-east-1b"
 
     tags = {
-        Name = "pubsub2"
+        Name = "pubsub2-${var.environment}"
     }
 }
 
@@ -47,7 +47,7 @@ resource "aws_subnet" "privsub1" {
     availability_zone = "us-east-1c"
 
     tags = {
-        Name = "privsub1"
+        Name = "privsub1-${var.environment}"
     }
 }
 
@@ -57,7 +57,7 @@ resource "aws_subnet" "privsub2" {
     availability_zone = "us-east-1d"
 
     tags = {
-        Name = "privsub2"
+        Name = "privsub2-${var.environment}"
     }
 }
 

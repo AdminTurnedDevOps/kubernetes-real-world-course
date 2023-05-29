@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - sock-shop-ns.yaml
+  - carts-db-dep.yaml
+  - carts-db-svc.yaml
+  - carts-dep.yaml
+  - carts-svc.yaml
+  - catalogue-db-dep.yaml
+  - catalogue-db-svc.yaml
+  - catalogue-dep.yaml
+  - catalogue-svc.yaml
+  - front-end-dep.yaml
+  - front-end-svc.yaml
+  - orders-db-dep.yaml
+  - orders-db-svc.yaml
+  - orders-dep.yaml
+  - orders-svc.yaml
+  - payment-dep.yaml
+  - payment-svc.yaml
+  - queue-master-dep.yaml
+  - queue-master-svc.yaml
+  - rabbitmq-dep.yaml
+  - rabbitmq-svc.yaml
+  - session-db-dep.yaml
+  - session-db-svc.yaml
+  - shipping-dep.yaml
+  - shipping-svc.yaml
+  - user-db-dep.yaml
+  - user-db-svc.yaml
+  - user-dep.yaml
+  - user-svc.yaml
