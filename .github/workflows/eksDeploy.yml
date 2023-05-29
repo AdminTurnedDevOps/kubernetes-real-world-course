@@ -57,4 +57,4 @@ jobs:
 
       # Verify deployment
       - name: Verify the deployment
-        run: kubectl get pods
+        run: helm list -n argocd
