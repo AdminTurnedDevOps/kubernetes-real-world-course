@@ -1,0 +1,39 @@
+name: 'EKS Cluster Deletion'
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    environment: production
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Init
+      working-directory: Day-One/cluster/
+      run: terraform init -backend-config "bucket=terraformaws11" -backend-config "key=eks-prod.tfstate"
+    
+    - name: Terraform Destroy
+      working-directory: Day-One/cluster/
+      run: terraform destroy -auto-approve

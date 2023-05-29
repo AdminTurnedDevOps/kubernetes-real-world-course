@@ -1,0 +1,60 @@
+name: 'Deploy To EKS'
+
+on:
+  workflow_dispatch:
+      
+env:
+  EKS_REGION: "us-east-1"
+  EKS_CLUSTER: "prodEKS"
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+          
+      - uses: azure/setup-helm@v3
+        id: install
+        
+      - name: Install kubectl
+        run: |
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+          echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+
+          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+          
+          kubectl version --client
+
+      - name: Check AWS version
+        run: |
+          aws --version
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          aws configure set region $EKS_REGION
+          aws sts get-caller-identity
+          
+      - name: Connect to EKS cluster 
+        run: aws eks --region $EKS_REGION update-kubeconfig --name $EKS_CLUSTER
+      
+      - name: Helm Install ArgoCD Repo
+        shell: bash
+        run: helm repo add argo https://argoproj.github.io/argo-helm
+        
+      - name: Helm Install ArgoCD
+        shell: bash
+        run: helm install argocd -n argocd argo/argo-cd --set redis-ha.enabled=true --set controller.replicas=1  --set server.autoscaling.enabled=true --set server.autoscaling.minReplicas=2 --set repoServer.autoscaling.enabled=true --set repoServer.autoscaling.minReplicas=2 --set applicationSet.replicaCount=2 --set server.service.type=LoadBalancer --create-namespace
+
+      # Verify deployment
+      - name: Verify the deployment
+        run: helm list -n argocd
