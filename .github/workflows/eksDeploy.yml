@@ -4,7 +4,8 @@ on:
   workflow_dispatch:
       
 env:
-  EKS_REGION: "us-east-1" 
+  EKS_REGION: "us-east-1"
+  $EKS_CLUSTER: "prodEKS"
 
 jobs:
   deploy:
