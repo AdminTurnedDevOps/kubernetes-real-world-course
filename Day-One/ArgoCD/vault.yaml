@@ -19,20 +19,3 @@ spec:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: vault
-# ---
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: hashicorp-vault-operator
-#   namespace: argocd
-# spec:
-#   project: default
-#   source:
-#     chart: vault-secrets-operator
-#     repoURL: https://helm.releases.hashicorp.com
-#     targetRevision: 0.1.0-beta
-#     helm:
-#       releaseName: vaultsecretsoperator
-#   destination:
-#     server: "https://kubernetes.default.svc"
-#     namespace: vault
