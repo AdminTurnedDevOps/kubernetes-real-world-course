@@ -1,3 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vault
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -7,10 +12,27 @@ spec:
   project: default
   source:
     chart: vault
-    repoURL: https://artifacthub.io/packages/helm/hashicorp/vault
-    targetRevision: 1.31.1
+    repoURL: https://helm.releases.hashicorp.com/
+    targetRevision: 0.24.1
     helm:
       releaseName: vault
   destination:
     server: "https://kubernetes.default.svc"
     namespace: vault
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: hashicorp-vault-operator
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     chart: vault-secrets-operator
+#     repoURL: https://helm.releases.hashicorp.com
+#     targetRevision: 0.1.0-beta
+#     helm:
+#       releaseName: vaultsecretsoperator
+#   destination:
+#     server: "https://kubernetes.default.svc"
+#     namespace: vault
