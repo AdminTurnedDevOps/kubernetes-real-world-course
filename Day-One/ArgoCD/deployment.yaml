@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: guestbook
+  name: sockshopapp
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/argoproj/argocd-example-apps.git
+    repoURL: https://github.com/microservices-demo/microservices-demo.git
     targetRevision: HEAD
-    path: guestbook
+    path: deploy/kubernetes/manifests
   destination:
     server: https://kubernetes.default.svc
-    namespace: guestbook
+    namespace: sock-shop
