@@ -16,6 +16,8 @@ spec:
     targetRevision: 0.24.1
     helm:
       releaseName: vault
+      valueFiles:
+      - override-values.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: vault
