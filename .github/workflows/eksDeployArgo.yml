@@ -1,4 +1,4 @@
-name: 'Deploy To EKS'
+name: 'Deploy ArgoCD To EKS'
 
 on:
   workflow_dispatch:
