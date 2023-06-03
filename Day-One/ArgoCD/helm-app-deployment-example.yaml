@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sealed-secrets
+  name: hashicorp-vault
   namespace: argocd
 spec:
   project: default
   source:
-    chart: sealed-secrets
-    repoURL: https://bitnami-labs.github.io/sealed-secrets
-    targetRevision: 1.16.1
+    chart: vault
+    repoURL: https://artifacthub.io/packages/helm/hashicorp/vault
+    targetRevision: 1.31.1
     helm:
-      releaseName: sealed-secrets
+      releaseName: vault
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: kubeseal
+    namespace: vault
