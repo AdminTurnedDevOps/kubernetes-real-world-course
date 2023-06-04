@@ -15,9 +15,8 @@ spec:
     repoURL: https://helm.releases.hashicorp.com/
     targetRevision: 0.24.1
     helm:
-      releaseName: vault
       valueFiles:
-      - override-values.yaml
+        - values.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: vault
