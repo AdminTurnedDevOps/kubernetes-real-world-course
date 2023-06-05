@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vault
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hashicorp-vault
+  namespace: argocd
+spec:
+  project: default
+  sources:
+  - repoURL: https://helm.releases.hashicorp.com/
+    chart: vault
+    targetRevision: 0.24.1
+    helm:
+      valueFiles:
+      - $values/Day-One/ArgoCD/values.yaml
+  - repoURL: 'https://github.com/AdminTurnedDevOps/kubernetes-real-world-course.git'
+    targetRevision: HEAD
+    ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: vault

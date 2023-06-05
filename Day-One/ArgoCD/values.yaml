@@ -79,10 +79,10 @@ server:
   #     secretKey: AWS_SECRET_ACCESS_KEY
 
   # Authentication to AWS for auto unseal
-  serviceAccount:
-    create: true
-    annotations: |
-      eks.amazonaws.com/role-arn: ""
+  # serviceAccount:
+  #   create: true
+  #   annotations: |
+  #     eks.amazonaws.com/role-arn: ""
 
   extraEnvironmentVars:
     VAULT_LOG_LEVEL: debug
@@ -103,11 +103,6 @@ server:
           tls_disable = 1
           address = "[::]:8200"
           cluster_address = "[::]:8201"
-        }
-
-        seal "awskms" {
-          region     = "us-east-1"
-          kms_key_id = ""
         }
 
         storage "raft" {
