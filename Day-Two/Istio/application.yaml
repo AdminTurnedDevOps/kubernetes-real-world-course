@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: istio-system
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istiobase
+  namespace: argocd
+spec:
+  project: default
+  sources:
+  - repoURL: https://istio-release.storage.googleapis.com/charts
+    chart: base
+    targetRevision: 1.18.0
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: istio-system
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istiod
+  namespace: argocd
+spec:
+  project: default
+  sources:
+  - repoURL: https://istio-release.storage.googleapis.com/charts
+    chart: istiod
+    targetRevision: 1.18.0
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: istio-system
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istiogateway
+  namespace: argocd
+spec:
+  project: default
+  sources:
+  - repoURL: https://istio-release.storage.googleapis.com/charts
+    chart: gateway
+    targetRevision: 1.18.0
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: istio-system
