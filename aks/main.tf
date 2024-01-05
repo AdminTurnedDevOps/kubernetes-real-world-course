@@ -1,4 +1,13 @@
 terraform {
+  backend "azurerm" {
+    resource_group_name  = "devrelasaservice"
+    storage_account_name = "terraformprod92"
+    container_name       = "tfstate"
+    key                  = "prod.terraform.tfstate"
+  }
+}
+
+terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
