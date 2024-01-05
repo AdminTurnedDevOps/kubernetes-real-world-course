@@ -20,10 +20,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       
-    - name: Azure login
-      uses: azure/login@v1.4.6
-      with:
-        creds: ${{ secrets.CREDS }}
+    # - name: Azure login
+    #   uses: azure/login@v1.4.6
+    #   with:
+    #     creds: ${{ secrets.CREDS }}
 
     - name: login
       run: az login --user $user --password $password
