@@ -25,6 +25,9 @@ jobs:
       with:
         creds: ${{ secrets.CREDS }}
 
+    - name: login
+      run: az login --user $user --password $password
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
