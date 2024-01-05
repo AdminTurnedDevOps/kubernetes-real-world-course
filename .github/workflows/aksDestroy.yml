@@ -1,0 +1,37 @@
+name: 'AKS Destroy'
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    environment: production
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Azure login
+      uses: azure/login@v1.4.6
+      with:
+        creds: ${{ secrets.CREDS }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Init
+      working-directory: aks
+      run: terraform init
+    
+    - name: Terraform Apply
+      working-directory: aks
+      run: terraform destroy -auto-approve
