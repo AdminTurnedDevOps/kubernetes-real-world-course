@@ -9,6 +9,11 @@ permissions:
 jobs:
   terraform:
     name: 'Terraform'
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
     runs-on: ubuntu-latest
     environment: production
 
@@ -20,10 +25,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       
-    - name: Azure login
-      uses: azure/login@v1.4.6
-      with:
-        creds: ${{ secrets.CREDS }}
+    # - name: Azure login
+    #   uses: azure/login@v1.4.6
+    #   with:
+    #     creds: ${{ secrets.CREDS }}
 
 
     - name: Setup Terraform
