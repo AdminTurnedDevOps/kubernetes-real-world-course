@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "terraformaws11"
+    bucket = "argocd-demo"
     key    = "aws-terraform-vpc.tfstate"
     region = "us-east-1"
   }
@@ -15,7 +15,7 @@ resource "aws_vpc" "main" {
  cidr_block = "10.0.0.0/16"
  
  tags = {
-   Name = "${var.environment}-vpc"
+   Name = "PROD-vpc"
  }
 }
 
@@ -26,7 +26,7 @@ resource "aws_subnet" "pubsub1" {
     availability_zone = "us-east-1a"
     
     tags = {
-        Name = "pubsub1-${var.environment}"
+        Name = "pubsub1-prod"
     }
 }
 
@@ -37,7 +37,7 @@ resource "aws_subnet" "pubsub2" {
     availability_zone = "us-east-1b"
 
     tags = {
-        Name = "pubsub2-${var.environment}"
+        Name = "pubsub2-prod"
     }
 }
 
@@ -47,7 +47,7 @@ resource "aws_subnet" "privsub1" {
     availability_zone = "us-east-1c"
 
     tags = {
-        Name = "privsub1-${var.environment}"
+        Name = "privsub1-prod"
     }
 }
 
@@ -57,7 +57,7 @@ resource "aws_subnet" "privsub2" {
     availability_zone = "us-east-1d"
 
     tags = {
-        Name = "privsub2-${var.environment}"
+        Name = "privsub2-prod"
     }
 }
 
